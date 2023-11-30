@@ -136,32 +136,36 @@ if __name__ == "__main__":
         wb = load_workbook(filename) # Define el libro de excel a utilizar como el especificado en la linea de comandos
         ws = wb.active
 
-        command = sys.argv[2].upper()
-
-        # Procesando parametros #
-
+        command = None
         contador = 0
+        if len(sys.argv) > 2:
+            command = sys.argv[2].upper()
 
-        if "T" in command: 
-                changeColumnSize(ws)
+            # Procesando parametros #
+
+            if "T" in command: 
+                    changeColumnSize(ws)
+                    contador +=1
+
+            if "F" in command: 
+                changeFontAndSize(ws)
                 contador +=1
 
-        if "F" in command: 
-            changeFontAndSize(ws)
-            contador +=1
+            if "P" in command: 
+                    changeColumnProperty(ws)
+                    contador +=1
 
-        if "P" in command: 
-                changeColumnProperty(ws)
+            if "R" in command: 
+                replaceCharacters(ws)
                 contador +=1
 
-        if "R" in command: 
-            replaceCharacters(ws)
-            contador +=1
+            if "M" in command: 
+                convertToUpperCase(ws)
+                contador +=1
 
-        if "M" in command: 
-            convertToUpperCase(ws)
-            contador +=1
-
+            if "-E" in sys.argv: 
+                finalFile = saveDocument(True)
+                contador += 1
         if contador == 0:
             changeColumnSize(ws)
             changeFontAndSize(ws)
@@ -169,9 +173,8 @@ if __name__ == "__main__":
             changeColumnProperty(ws)
             convertToUpperCase(ws)
 
-        if "-E" in sys.argv: finalFile = saveDocument(True)
-
-        else: finalFile = saveDocument(False)
+            if "-E" in sys.argv: finalFile = saveDocument(True)
+            else: finalFile = saveDocument(False)
 
         wb.save(finalFile)
         print("Operacion exitosa. El archivo se ha guardado como:" + finalFile)
