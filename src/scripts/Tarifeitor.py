@@ -99,21 +99,16 @@ def replaceCharacters(ws): # Reemplaza los caracteres indeseados
                 x = x.replace(buscar, reemplazo)
             ws.cell(column=4, row=row).value = x
 
-def saveDocument(customExt):
-    # Separa archivo en nombre y extension #
-    nCompleto = str(sys.argv[1])
+def saveDocument():
+    ruta = str(sys.argv[1])
+    barra = ruta.rfind("\\")
+    if barra == -1:
+        nCompleto = ruta[barra:]
+    else:
+        nCompleto = ruta
     dot = nCompleto.rfind(".")
     name = nCompleto[:dot]
-    # Diferencia entre extension personalizada o no #
-    if customExt == True:
-        extPos = sys.argv.index("-E") + 1
-        extension = sys.argv[extPos].replace(".", "")
-    elif customExt == False:
-        extension = nCompleto[dot+1:]
-    else:
-        print("Error: 'customExt' no es un booleano")
-        exit(1)
-    # Guarda el archivo #
+    extension = nCompleto[dot+1:]
     finalFile = name + "Final." + extension
     return(finalFile)
 
@@ -163,9 +158,6 @@ if __name__ == "__main__":
                 convertToUpperCase(ws)
                 contador +=1
 
-            if "-E" in sys.argv: 
-                finalFile = saveDocument(True)
-                contador += 1
         if contador == 0:
             changeColumnSize(ws)
             changeFontAndSize(ws)
@@ -173,9 +165,7 @@ if __name__ == "__main__":
             changeColumnProperty(ws)
             convertToUpperCase(ws)
 
-            if "-E" in sys.argv: finalFile = saveDocument(True)
-            else: finalFile = saveDocument(False)
-
+        finalFile = saveDocument()
         wb.save(finalFile)
         print("Operacion exitosa. El archivo se ha guardado como:" + finalFile)
         sys.exit(0)
