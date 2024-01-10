@@ -20,14 +20,12 @@ help = """
 
 -R: Borra los caracteres especiales de los numeros de referencia, dejando solo los numeros\n    y reemplaza las vocales con tilde, la Ñ, los espacios antes y despues de los caracteres especiales\n    en las descripciones\n
 
--E Cambia la extension del archivo a la que indiques
 [Funcionamiento]
-Ejemplo: python Tarifeitor.py ejemplo.xlsx -TPF -e xls
+Ejemplo: python Tarifeitor.py ejemplo.xlsx -TPF
 En este ejemplo se ejecutaria el cambio de tamaño de columnas(T), cambio de propiedades de las columnas de precio(P)\n""" + """y cambio de fuentes, ademas se exportaria en formato xls(F)\n
 El primer parametro debe ser el libro con el que trabajaremos, tiene que estar ya ordenado en este orden:\n
 Codigo | Indice | Codigo de Fabricante | Descripcion | Subfamilia | PV1 | PV2 | Precio Neto | Codigo de Barras\n
-El segundo parametro puedes dejarlo en blanco y ejecutara automaticamente todas las funciones, en caso de que quieras\n""" + """ejecutar funciones concretas, debes especificarlas como en el ejemplo\n
-Puedes añadir separado el parametro -E para especificar la extension de archivo a utilizar, por defecto se usara la extension original"""
+El segundo parametro puedes dejarlo en blanco y ejecutara automaticamente todas las funciones, en caso de que quieras\n""" + """ejecutar funciones concretas, debes especificarlas como en el ejemplo\n"""
 
 ###########################################
 ################ Funciones ################
@@ -100,7 +98,7 @@ def replaceCharacters(ws): # Reemplaza los caracteres indeseados
             ws.cell(column=4, row=row).value = x
 
 def saveDocument():
-    ruta = str(sys.argv[1])
+    ruta = str(sys.argv[1]) # Asigna la ruta a la misma carpeta que el archivo excel
     barra = ruta.rfind("\\")
     if barra == -1:
         nCompleto = ruta[barra:]
@@ -110,7 +108,8 @@ def saveDocument():
     name = nCompleto[:dot]
     extension = nCompleto[dot+1:]
     finalFile = name + "Final." + extension
-    return(finalFile)
+    wb.save(finalFile)
+    print("Operacion exitosa. El archivo se ha guardado en: " + finalFile)
 
 ##########################################
 ############### Parametros ###############
@@ -165,10 +164,9 @@ if __name__ == "__main__":
             changeColumnProperty(ws)
             convertToUpperCase(ws)
 
-        finalFile = saveDocument()
-        wb.save(finalFile)
-        print("Operacion exitosa. El archivo se ha guardado como:" + finalFile)
+        saveDocument()
         sys.exit(0)
+        
     except Exception as e:
         print("Error:", str(e))
         sys.exit(1)
