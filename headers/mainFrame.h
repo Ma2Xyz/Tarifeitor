@@ -9,7 +9,7 @@ private:
 		ejecutarID = 2,
 		cancelarID = 3,
 		filtroID = 4,
-		tamañoColumnasID = 5,
+		tamanoColumnasID = 5,
 		fuenteID = 6,
 		preciosID = 7,
 		mayusculasID = 8,
@@ -21,7 +21,7 @@ private:
 
 	wxTextCtrl* nombreArchivo;
 	wxCheckBox* casillaFiltro;
-	wxCheckBox* casillaTamañoColumnas;
+	wxCheckBox* casillaTamanoColumnas;
 	wxCheckBox* casillaFuente;
 	wxCheckBox* casillaPrecios;
 	wxCheckBox* casillaMayusculas;

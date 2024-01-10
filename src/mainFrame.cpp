@@ -17,23 +17,20 @@ mainFrame::mainFrame(const wxString& title) : wxFrame(nullptr, wxID_ANY, title) 
 	wxStaticText* textoParametros = new wxStaticText(panel, wxID_ANY, "Parametros", wxPoint(120, 10));
 
 	casillaFiltro = new wxCheckBox(panel, filtroID, "Filtro", wxPoint(35, 25), wxDefaultSize);
-	casillaTamañoColumnas = new wxCheckBox(panel, tamañoColumnasID, "Columnas", wxPoint(35, 60));
+	casillaTamanoColumnas = new wxCheckBox(panel, tamanoColumnasID, "Columnas", wxPoint(35, 60));
 	casillaFuente = new wxCheckBox(panel, fuenteID, "Fuente", wxPoint(35, 95));
 	casillaPrecios = new wxCheckBox(panel, preciosID, "Propiedades de numeros", wxPoint(210, 25));
 	casillaMayusculas = new wxCheckBox(panel, mayusculasID, "Mayusculas", wxPoint(210, 60));
 
 	casillaFiltro->SetValue(true);
-	casillaTamañoColumnas->SetValue(true);
+	casillaTamanoColumnas->SetValue(true);
 	casillaFuente->SetValue(true);
 	casillaPrecios->SetValue(true);
 	casillaMayusculas->SetValue(true);
 
 	nombreArchivo = new wxTextCtrl(panel, nombreArchivoID, "Ruta del Archivo", wxPoint(210, 95));
 	wxButton* botonSeleccionarArchivo = new wxButton(panel, seleccionarArchivoID, "...", wxPoint(320, 95), wxSize(30, 23));
-
 	wxButton* botonEjecutar = new wxButton(panel, ejecutarID, "Ejecutar", wxPoint(285, 130), wxSize(80, 32));
-
-
 	wxButton* botonCancelar = new wxButton(panel, cancelarID, "Cancelar", wxPoint(5, 130), wxSize(80, 32));
 
 	CreateStatusBar();
@@ -43,7 +40,7 @@ void mainFrame::OnSelectFileClicked(wxCommandEvent& evt) {
 	wxFileDialog openFileDialog(this, "Seleccionar archivo", "", "", "Todos los archivos (*.*)|*.*", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 
 	if (openFileDialog.ShowModal() == wxID_CANCEL) {
-		// El usuario canceló la selección
+		// El usuario cancelï¿½ la selecciï¿½n
 		return;
 	}
 
@@ -60,7 +57,7 @@ void mainFrame::OnButtonClicked(wxCommandEvent& evt) {
 
 	std::map<char, wxCheckBox*> letraCasillaMap;
 	letraCasillaMap['R'] = casillaFiltro;
-	letraCasillaMap['T'] = casillaTamañoColumnas;
+	letraCasillaMap['T'] = casillaTamanoColumnas;
 	letraCasillaMap['F'] = casillaFuente;
 	letraCasillaMap['P'] = casillaPrecios;
 	letraCasillaMap['M'] = casillaMayusculas;
